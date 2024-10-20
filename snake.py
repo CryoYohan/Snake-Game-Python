@@ -13,11 +13,18 @@ class Snake:
 
     def create_snake(self):
         for position in POSITIONS:
-            tim = Turtle(shape='square')
-            tim.penup()
-            tim.color('white')
-            tim.goto(position)
-            self.segments.append(tim)
+            self.add_segment(position)
+
+    def add_segment(self, position):
+        tim = Turtle(shape='square')
+        tim.penup()
+        tim.color('white')
+        tim.goto(position)
+        self.segments.append(tim)
+
+    def extend(self):
+        # if snake head collides with food, extend segments
+        self.add_segment(self.segments[-1].position())
 
     def move(self):
         for seg_num in range(len(self.segments) - 1, 0, -1):

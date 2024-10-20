@@ -28,7 +28,20 @@ class Window:
             if self.snake.snake_head.distance(self.food) < 15:
                 print('nom nom nom')
                 self.food.refresh()
+                self.snake.extend()
                 self.scoreboard.add_score()
+
+            # Detect wall collision
+            if self.snake.snake_head.xcor() > 280 or self.snake.snake_head.xcor() < -280 or self.snake.snake_head.ycor() > 280 or self.snake.snake_head.ycor() < -280:
+                self.game_is_running = False
+                self.scoreboard.game_over()
+
+            # Detect Tail collision
+            for segment in self.snake.segments[1:]:
+                if self.snake.snake_head.distance(segment) < 10:
+                    self.game_is_running = False
+                    self.scoreboard.game_over()
+
 
     def listen_keys(self):
         self.screen.listen()
